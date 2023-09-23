@@ -8,21 +8,34 @@ class ProductManager{
     }
 
     addProduct(title, description, price, thumbnail, code, stock){
-        this.products.push({
-            id: this.products.length + 1,
+        for(let i = 0 ;i < this.products.length; i++){
+            if(this.products[i].code === code) { 
+            console.log(`${code} está repetido`);
+            break;
+            }
+        }
+
+        const newProduct = {
             title,
             description,
             price,
             thumbnail,
             code,
             stock,
-        });
-        console.log('Product added');
+        }
+
+        if(!Object.values(newProduct).includes(undefined)){
+            this.products.push({...newProduct,
+                id: this.products.length + 1               
+            });
+        }else{
+            console.log('Revisa los campos obligatorios');
+        }
+
     }
 
-    getProductById(){
-        let Product = this.products.find (product => product.id === id);
-        if (!id) {
+    getProductById(id){
+        if (!this.products.find((product) => product.id === id))  {
             console.log('Product not found');
         }
         else {
@@ -32,10 +45,12 @@ class ProductManager{
     
 }
 
-let Products = new ProductManager();
+const utiles = new ProductManager();
+utiles.addProduct('cartuchera','roja de dos pisos', 3500, 'sin imagen', 'a1b2c3', 15)
+utiles.addProduct('birome','azul con tapa', 300, 'sin imagen', 'a2b2c3', 100)
 
-products.addProduct('cartuchera', 'util escolar', 2000, 'no picture', 'a1b2c3', 15 );
-products.addProduct('cuaderno', 'util escolar', 800, 'no picture', 'a1b2c3d4', 13 );
+console.log(utiles.getProducts());
 
-console.log(products.getProducts());
-console.log(getProductById);
+utiles.addProduct('lapiz','estandar', 100, 'sin imagen', 'a2b2c3')
+
+utiles.getProductById(3);
