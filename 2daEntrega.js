@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 class ProductManager{
     constructor() {
         this.products = [];
@@ -10,9 +12,8 @@ class ProductManager{
     addProduct(title, description, price, thumbnail, code, stock){
         for(let i = 0 ;i < this.products.length; i++){
             if(this.products[i].code === code) { 
-                throw new Error ('el producto ya existe')
-            // console.log(`${code} está repetido`);
-            // break;>>
+            console.log(`${code} está repetido`);
+            break;
             }
         }
 
@@ -33,20 +34,14 @@ class ProductManager{
             console.log('Revisa los campos obligatorios');
         }
 
-        //alternativa
-        // if (!stock || !code || ...) throw new Error("Faltan campos")
-        return newProduct;
-
     }
 
     getProductById(id){
-        const productById = this.products.find((product) => product.id === id)
-        if (productById)  {
-            return productById
-            // console.log('Product not found');
+        if (!this.products.find((product) => product.id === id))  {
+            console.log('Product not found');
         }
         else {
-            throw new Error ('not found')
+            console.log('Product already exists');
         }
     }
     
