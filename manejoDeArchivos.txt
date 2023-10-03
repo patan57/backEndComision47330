@@ -1,0 +1,11 @@
+utiles = [
+    {
+        title:'cartuchera',
+        description:'roja de dos pisos',
+        price: 3500,
+        thumbnail:'sin imagen',
+        code:'a1b2c3',
+        stock: 15,
+        id: 1
+    }
+]
