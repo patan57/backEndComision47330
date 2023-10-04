@@ -1,0 +1,11 @@
+[
+    {
+        "title": "regla",
+        "description": "de color azul",
+        "price": 300,
+        "thumnail": "sin imagen",
+        "Code": "qwe123",
+        "Stock": 10,
+        "id": 1
+    }
+]

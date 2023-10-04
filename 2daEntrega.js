@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 
-class ProductManager{
+class productManager{
     constructor(path) {
         this.path = path;
     }
@@ -92,16 +92,18 @@ const saveJSONToFile = async (path, data) => {
 
 const utiles = async () => {
     try {
-        const ProductManager = new ProductManager('./utiles.json');
-        await ProductManager.create({
-            title: 'Regla',
-            description: 'azul marca Pizzini',
-            price: 300,
+        const productManager = new productManager('./utiles.json');
+        await productManager.addProduct({
+            title: 'Lápiz',
+            description: 'gris',
+            price: 150,
             thumbnail:'sin descripión',
             code: '123qwe',
-            stock: 10,
+            stock: 11,
         });
-        const utiles = await ProductManager.get();
+        await productManager.updateProduct();
+        await productManager.unlink();
+        const utiles = await productManager.get();
         console.log('estos son los útiles', utiles);
     } catch (error) {
         console.error('ERROR', error.message);
