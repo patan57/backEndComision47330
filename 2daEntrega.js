@@ -6,20 +6,20 @@ class ProductManager{
         this.path = path;
     }
 
-    getProducts(){
-        return getJSONFromFile (this.path);
-    }
-
     async addProduct(product){
         const {title,description,price,thumnail,code,stock} = product; 
         if(!title || !description || !price|| !thumnail|| !code|| !stock){
             throw new error ('Todos los campos son obligatorios')
         }
         const products = await getJSONFromFile(this.path);
-        const id = math.random();
+        const id = products.length + 1;
         const newProduct = { id, title, description, price, thumnail, code, stock};
         products.push(newProduct);
         return saveJSONToFile(this.path, products);
+    }
+
+    getProducts(){
+        return getJSONFromFile (this.path);
     }
 
     getProductById(id){
@@ -33,7 +33,7 @@ class ProductManager{
         }
     }
 
-     async updateProduct(id){
+    async updateProduct(id){
         const productById = this.products.appendFile((product) => product.id === id)
         if (productById) {
             
@@ -56,6 +56,39 @@ class ProductManager{
     
     
 }
+
+const existFile = async (path) => {
+    try {
+        await fs.promises.access(path);
+        return true;
+    } catch (error) {
+        return false;
+    }
+};
+
+const getJSONFromFile = async (path)=>{
+if(!await existFile(path)) {
+    return[];
+}
+
+let content;
+
+try {
+    content = await fs.promises.readFile(path, 'utf-8');
+} catch (error) {
+    throw new Error (`El archivo ${path} no tiene un formato JSON válido.`);
+}
+};
+
+const saveJSONToFile = async (path, data) => {
+    const content = JSON.stringify(data, null, '\t');
+    try {
+        await fs.promises.writeFile(path, content, 'utf-8'); 
+    } catch (error) {
+        throw new Error (`Èl archivo ${path} no pudo ser leido.`);
+    }
+};
+
 
 const utiles = async () => {
     try {
