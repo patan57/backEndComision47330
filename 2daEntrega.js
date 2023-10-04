@@ -34,18 +34,18 @@ class productManager{
     }
 
     async updateProduct(id){
-        const productById = this.products.appendFile((product) => product.id === id)
+        const productById = this.path.appendFile((product) => product.id === id)
         if (productById) {
             
         }
-        await fs.promises.appendFile('./manejoDeArchivos.txt', productById, 'utf-8');
+        await fs.promises.appendFile('./2daEntrega.json', productById, 'utf-8');
     }
     
     async deleteProductById(id) {
-        const productById = this.products.filter((product) => product.id != id)
+        const productById = this.path.filter((product) => product.id != id)
         if (productById){
             return productById;
-            await fs.promises.unlink('./manejoDeArchivos.txt', productById, 'utf-8')
+            await fs.promises.unlink('./2daEntrega.json', productById, 'utf-8')
         }
         else{
             throw new error ('no has eliminado nada')
